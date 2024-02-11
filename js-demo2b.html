@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+    <head>  
+        <title>My Second Web Page</title>
+
+        <link rel="stylesheet" href="demo.css">
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+        <script>
+            $(document).ready(function() {
+            $("#btn").click(function(event){
+
+            });
+            });
+        </script>
+    </head> 	
+    <body>
+
+        <div id="container">
+
+        <header>My Web Site Brand</header>
+        <nav>
+            <ul>
+            <li><a href="js-demo2.html">Home</a></li>
+            <li><a href="js-demo2b.html">About</a></li>
+            <li><a href="js-demo2d.html">Gallery</a></li>
+            <li><a href="js-demo2c.html">Contact</a></li>
+            </ul>
+        </nav>
+
+        <main>
+        <h1>My Second Heading</h1>
+        <p>My Second paragraph.</p>
+
+        <table id="burgerTable" style="display:none;"> <!-- Initially hidden -->
+            <caption>Calories Comparison of Popular Burgers</caption>
+            <thead>
+            <tr>
+                <th>Type</th>
+                <th>BigMac</th>
+                <th>Whopper</th>
+                <th>Dave's Double</th>
+                <th>Whataburger</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <th>Calories</th>
+                <td id="calBigMac"></td>
+                <td id="calWhopper"></td>
+                <td id="calDavesDouble"></td>
+                <td id="calWhataburger"></td>
+            </tr>
+            <tr>
+                <th>Fat</th>
+                <td id="fatBigMac"></td>
+                <td id="fatWhopper"></td>
+                <td id="fatDavesDouble"></td>
+                <td id="fatWhataburger"></td>
+            </tr>
+            </tbody>
+            <tfoot>
+            <tr>
+                <th>Vendor</th>
+                <td id="venBigMac"></td>
+                <td id="venWhopper"></td>
+                <td id="venDavesDouble"></td>
+                <td id="venWhataburger"></td>
+            </tr>
+            </tfoot>
+        </table>
+
+            <input type = "button" id = "btn" value = "Load Data" style="margin-top:20px;" />
+        </main>
+
+        <footer>&copy; Copyright 2020</footer>
+
+        </div>
+        
+        <script>
+            $(document).ready(function() {
+                $("#btn").click(function() {
+                    // Fetch data from the JSON file
+                    $.getJSON('data.json', function(data) {
+                        // Populate the table headings
+                        $("#burgerTable thead").html(
+                            "<tr>" +
+                            "<th>" + data.heading + "</th>" +
+                            "<th>" + data.head1 + "</th>" +
+                            "<th>" + data.head2 + "</th>" +
+                            "<th>" + data.head3 + "</th>" +
+                            "<th>" + data.head4 + "</th>" +
+                            "</tr>"
+                        );
+                        // Populate the table body with calories
+                        $("#burgerTable tbody").html(
+                            "<tr>" +
+                            "<th>" + data.subheadcal + "</th>" +
+                            "<td>" + data.cal1 + "</td>" +
+                            "<td>" + data.cal2 + "</td>" +
+                            "<td>" + data.cal3 + "</td>" +
+                            "<td>" + data.cal4 + "</td>" +
+                            "</tr>" +
+                            // Populate the table body with fat
+                            "<tr>" +
+                            "<th>" + data.subheadfat + "</th>" +
+                            "<td>" + data.fat1 + "</td>" +
+                            "<td>" + data.fat2 + "</td>" +
+                            "<td>" + data.fat3 + "</td>" +
+                            "<td>" + data.fat4 + "</td>" +
+                            "</tr>"
+                        );
+                        // Populate the table footer with vendors
+                        $("#burgerTable tfoot").html(
+                            "<tr>" +
+                            "<th>" + data.subheadven + "</th>" +
+                            "<td>" + data.ven1 + "</td>" +
+                            "<td>" + data.ven2 + "</td>" +
+                            "<td>" + data.ven3 + "</td>" +
+                            "<td>" + data.ven4 + "</td>" +
+                            "</tr>"
+                        );
+                        // Show the table
+                        $("#burgerTable").show();
+                    }).fail(function(jqxhr, textStatus, error) {
+                        var err = textStatus + ", " + error;
+                        console.log("Request Failed: " + err);
+                        alert("An error occurred while loading the data: " + err);
+                    });
+                });
+            });
+
+        </script>
+
+    </body>
+</html>
